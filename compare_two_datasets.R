@@ -53,13 +53,13 @@ gg <- ggplot(books_combined, aes(x = no_of_ratings, y = worldwide_gross)) +
                                                                 scales::comma(no_of_ratings))),
                   color = "red", size = 3 , vjust = 2.0, hjust = 0.7) +
   geom_text_repel(data = highest_box_office, aes(x = no_of_ratings, y = worldwide_gross,
-                                                 label = paste0(book_names,  "\nhas the highest box office revenue with \n$",
+                                                 label = paste0(book_names,  "\n            has the highest box office revenue with \n                                    $",
                                                                 scales::comma(worldwide_gross))),
-                  color = "darkblue", size = 3  , vjust = 1.75) +
+                  color = "darkblue", size = 3  , vjust = 0.75, hjust = -0.2) +
   geom_text_repel(data = highest_box_office_under_twoandhalf_goodreads, aes(x = no_of_ratings, y = worldwide_gross,
                                                 label = paste0(book_names,  "\nhas the highest box office revenue within \nthe books under 2.5 million Goodreads votes with \n$",
                                                           scales::comma(worldwide_gross))),
-                  color = "purple", size = 3 , vjust = -1.0, hjust = 0.5) +
+                  color = "purple", size = 3 , vjust = -0.5) +
   labs(title = "Number of Goodreads Ratings vs Box Office",
        x = "Number of Goodreads Ratings",
        y = "Box Office in $") +
