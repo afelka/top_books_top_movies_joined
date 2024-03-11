@@ -22,6 +22,16 @@ books_fuzzy_join <- stringdist_join(books, movies,
                                     method = "jw", #use jw distance metric
                                     max_dist=2, 
                                     distance_col='dist') %>%
-                    group_by(book_names) %>%
-                    slice_min(order_by=dist, n=1) %>% filter(dist <= 0.2)
+                    group_by(book_names_shortened) %>%
+                    slice_min(order_by=dist, n=1) %>% filter(dist <= 0.2) %>% 
+                    select(book_names_shortened,movie_title_shortened, dist)
+
+
+books_fuzzy_join <- books_fuzzy_join %>% filter(dist <= 0.125 | movie_title_shortened == "The Lord of the Rings")
+
+books_combined <- books %>% inner_join(books_fuzzy_join, by = "book_names_shortened") %>% 
+                  left_join(movies %>% select(movie_title_shortened, worldwide_gross, rating), 
+                            by = "movie_title_shortened")
+
+
 
